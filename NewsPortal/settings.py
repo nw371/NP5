@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-e1$5$h_d7$m-&(%1xlljj)%0sfbo6y5r8s3q43owke70m%-f=j
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-LOGIN_URL = '/news/login/'
-LOGIN_REDIRECT_URL = '/news/'
+
 
 # Application definition
 
@@ -89,8 +88,23 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/news/'
+
 WSGI_APPLICATION = 'NewsPortal.wsgi.application'
 
+
+
+
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -101,15 +115,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-AUTHENTICATION_BACKENDS = [
-
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

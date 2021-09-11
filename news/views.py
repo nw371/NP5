@@ -6,14 +6,14 @@ from .models import Post
 
 class News(ListView):
     model = Post  # указываем модель, объекты которой мы будем выводить
-    template_name = 'news.html'  # указываем имя шаблона, в котором будет лежать HTML, в котором будут все инструкции о том, как именно пользователю должны вывестись наши объекты
+    template_name = 'news/news.html'  # указываем имя шаблона, в котором будет лежать HTML, в котором будут все инструкции о том, как именно пользователю должны вывестись наши объекты
     context_object_name = 'news'  # это имя списка, в котором будут лежать все объекты, его надо указать, чтобы обратиться к самому списку объектов через HTML-шаблон
     queryset = Post.objects.order_by('-date')
     paginate_by = 10
 
 class SearchNews(ListView):
     model = Post  # указываем модель, объекты которой мы будем выводить
-    template_name = 'search.html'  # указываем имя шаблона, в котором будет лежать HTML, в котором будут все инструкции о том, как именно пользователю должны вывестись наши объекты
+    template_name = 'news/search.html'  # указываем имя шаблона, в котором будет лежать HTML, в котором будут все инструкции о том, как именно пользователю должны вывестись наши объекты
     context_object_name = 'search'  # это имя списка, в котором будут лежать все объекты, его надо указать, чтобы обратиться к самому списку объектов через HTML-шаблон
     queryset = Post.objects.order_by('-date')
     paginate_by = 5
@@ -26,12 +26,12 @@ class SearchNews(ListView):
 # создаём представление, в котором будут детали конкретного отдельного товара
 class PostDetail(DetailView):
     model = Post  # модель всё та же, но мы хотим получать детали конкретно отдельного товара
-    template_name = 'post.html'  # название шаблона будет product.html
+    template_name = 'news/post.html'  # название шаблона будет product.html
     context_object_name = 'post'  # название объекта. в нём будет
 
 class AddPub(FormView):
     model = Post
-    template_name = 'add.html'
+    template_name = 'news/add.html'
     context_object_name = 'add'
     form_class = PostForm
 
@@ -45,7 +45,7 @@ class AddPub(FormView):
 
 class PostEdit(LoginRequiredMixin, UpdateView):
     #model = Post  # модель всё та же, но мы хотим получать детали конкретно отдельного товара
-    template_name = 'edit.html'  # название шаблона будет product.html
+    template_name = 'news/edit.html'  # название шаблона будет product.html
     #context_object_name = 'post'  # название объекта. в нём будет
     form_class = PostForm
 
@@ -55,11 +55,9 @@ class PostEdit(LoginRequiredMixin, UpdateView):
 
 class PostDelete(DeleteView):
 
-    template_name = 'delete.html'  # название шаблона будет product.html
+    template_name = 'news/delete.html'  # название шаблона будет product.html
     queryset = Post.objects.all()
-    success_url = '/news/'
+    success_url = 'news/'
 
-class LoginPage(TemplateView):
-    template_name = 'login.html'
 
 
