@@ -29,7 +29,7 @@ class PostDetail(DetailView):
     template_name = 'news/post.html'  # название шаблона будет product.html
     context_object_name = 'post'  # название объекта. в нём будет
 
-class AddPub(FormView):
+class AddPub(LoginRequiredMixin,FormView):
     model = Post
     template_name = 'news/add.html'
     context_object_name = 'add'
