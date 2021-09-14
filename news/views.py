@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, TemplateView, FormView, UpdateView, DeleteView
 from .forms import PostForm
 from .filters import PostFilter
@@ -48,11 +48,12 @@ class AddPub(LoginRequiredMixin,FormView):
         context['is_not_author'] = not self.request.user.groups.filter(name = 'author').exists()
         return context
 
-class PostEdit(LoginRequiredMixin, UpdateView):
+class PostEdit(PermissionRequiredMixin, UpdateView):
     #model = Post  # модель всё та же, но мы хотим получать детали конкретно отдельного товара
     template_name = 'news/edit.html'  # название шаблона будет product.html
     #context_object_name = 'post'  # название объекта. в нём будет
     form_class = PostForm
+    permission_required = ('news.edit_post',)
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
@@ -68,6 +69,7 @@ class PostDelete(LoginRequiredMixin, DeleteView):
     template_name = 'news/delete.html'  # название шаблона будет product.html
     queryset = Post.objects.all()
     success_url = 'news/'
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

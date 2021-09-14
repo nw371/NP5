@@ -1,17 +1,14 @@
 from django.contrib import admin
 
 {% extends "flatpages/default.html" %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>{% block head_title %}{% endblock head_title %}</title>
-    </head>
-    <body>
+
+{% block head_title %}Заходим, не стесняемся... {% endblock head_title %}
+
+{% block content %}
         {% block body %}
         {% block content %}
         {% endblock content %}
         {% endblock body %}
         {% block extra_body %}
         {% endblock extra_body %}
-    </body>
-</html>
+{% endblock content %}
