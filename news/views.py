@@ -43,6 +43,11 @@ class AddPub(LoginRequiredMixin,FormView):
 
         return super().get(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_author'] = not self.request.user.groups.filter(name = 'author').exists()
+        return context
+
 class PostEdit(LoginRequiredMixin, UpdateView):
     #model = Post  # модель всё та же, но мы хотим получать детали конкретно отдельного товара
     template_name = 'news/edit.html'  # название шаблона будет product.html
@@ -53,11 +58,20 @@ class PostEdit(LoginRequiredMixin, UpdateView):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
 
-class PostDelete(DeleteView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_author'] = not self.request.user.groups.filter(name = 'author').exists()
+        return context
+
+class PostDelete(LoginRequiredMixin, DeleteView):
 
     template_name = 'news/delete.html'  # название шаблона будет product.html
     queryset = Post.objects.all()
     success_url = 'news/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_author'] = not self.request.user.groups.filter(name = 'author').exists()
+        return context
 
 
