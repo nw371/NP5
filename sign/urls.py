@@ -13,6 +13,6 @@ urlpatterns = [
          BaseRegisterView.as_view(template_name = 'sign/signup.html'),
          name='signup'),
 
-    path('/sign/upgrade/', add_to_authors, name = 'upgrade')
+    path('upgrade/', add_to_authors, name = 'upgrade')
 
 ]
