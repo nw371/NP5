@@ -41,7 +41,12 @@
                             {% if is_not_author %}
                                 <button> <a href="/sign/upgrade/"> Записаться в словоблуды!</a> </button>
                             {% endif %}
-                                <h5>Вы зашли, как: {{request.user.first_name}}</h5>
+                                {% if request.user.username %}
+                                <h5>Вы зашли, как: {{request.user.username}}</h5>
+                                {% else %}
+                                <h5>Вы зашли, как: гость</h5>
+                                {% endif %}
+
                                 <li class="nav-item active"><a class="nav-link" href="/sign/logout/">Выйти</a></li>
                                 <li class="nav-item dropdown">
 <!--                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>-->
